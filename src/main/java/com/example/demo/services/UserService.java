@@ -1,9 +1,10 @@
-package services;
+package com.example.demo.services;
 
-import model.user;
-import repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.example.demo.model.user;
+import com.example.demo.repository.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,5 +33,10 @@ public class UserService {
     // Delete a user
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    public user loadUserByUsername(String username) {
+        return userRepository.findByUsername(username)
+        .orElseThrow(null);
     }
 }

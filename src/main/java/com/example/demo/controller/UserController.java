@@ -1,14 +1,15 @@
-package controller;
+package com.example.demo.controller;
+import com.example.demo.model.user;
 
-import model.user;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import services.UserService;
+import com.example.demo.services.UserService;
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
+@RequestMapping("/users") 
 public class UserController {
 
     @Autowired
@@ -24,9 +25,10 @@ public class UserController {
         return userService.getUserById(id);
     }
 
-    @PostMapping("/adduser")
-    public user createUser(@RequestBody user user) {
-        return userService.createUser(user);
+    @PostMapping("/register")
+    public ResponseEntity<user> registerUser(@RequestBody user user) {
+        user createdUser = userService.createUser(user);
+        return ResponseEntity.status(201).body(createdUser);
     }
 
     @DeleteMapping("/{id}")

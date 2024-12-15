@@ -1,7 +1,8 @@
-package repository;
+package com.example.demo.repository;
 
-import model.user;
 import org.springframework.stereotype.Repository;
+
+import com.example.demo.model.user;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,5 +34,11 @@ public class UserRepository {
     // Delete a user by ID
     public void deleteById(Long id) {
         userList.removeIf(user -> user.getUserId().equals(id));
+    }
+
+    public Optional<user> findByUsername(String username) {
+        return userList.stream()
+        .filter(user -> user.getUsername().equals(username))
+        .findFirst();
     }
 }

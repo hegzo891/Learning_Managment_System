@@ -1,6 +1,6 @@
 package services;
 
-import model.User;
+import model.user;
 import repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,22 +15,22 @@ public class UserService {
     private UserRepository userRepository;
 
     // Get all users
-    public List<User> getAllUsers() {
+    public List<user> getAllUsers() {
         return userRepository.findAll();
     }
 
     // Get a user by ID
-    public Optional<User> getUserById(String id) {
+    public Optional<user> getUserById(Long id) {
         return userRepository.findById(id);
     }
 
     // Create a new user
-    public User createUser(User user) {
+    public user createUser(user user) {
         return userRepository.save(user);
     }
 
     // Delete a user
-    public void deleteUser(String id) {
+    public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
 }

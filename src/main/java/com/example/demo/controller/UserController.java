@@ -52,10 +52,9 @@ public class UserController {
     // ================================
 
     @PostMapping("/admin/register-user")
-    public ResponseEntity<String> registerUser(
+    public ResponseEntity<String> registerUser(@RequestHeader("Authorization") String authorizationHeader,
                                                @RequestBody user newUser) {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        String authorizationHeader = request.getHeader("Authorization");
+
         if (!isValidAuthorizationHeader(authorizationHeader)) {
             return ResponseEntity.status(400).body("Missing or invalid Authorization header");
         }
@@ -115,7 +114,7 @@ public class UserController {
 
         String token = authorizationHeader.replace("Bearer ", "");
         if (userService.hasRole(token, "Instructor")) {
-           // return ResponseEntity.ok(userService.getEnrolledStudents());
+            return ResponseEntity.ok(userService.getEnrolledStudents());
         }
         return ResponseEntity.status(403).body(null);
     }

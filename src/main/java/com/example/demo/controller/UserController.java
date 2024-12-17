@@ -3,13 +3,9 @@ package com.example.demo.controller;
 
 import com.example.demo.model.user;
 import com.example.demo.services.UserService;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-
 import java.util.List;
 
 @RestController
@@ -161,7 +157,7 @@ public class UserController {
 
         String token = authorizationHeader.replace("Bearer ", "");
         if (userService.hasRole(token, "Student")) {
-            //return ResponseEntity.ok(userService.getEnrolledCourses(token));
+            return ResponseEntity.ok(userService.getEnrolledCourses(token));
         }
         return ResponseEntity.status(403).body(null);
     }
